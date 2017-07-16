@@ -1,0 +1,13 @@
+﻿@model ContactListMvc.Models.ContactListViewModel
+
+@Html.HiddenFor(m => m.XlsUrl)
+
+@Html.Partial("_XlsUpload")
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            new xlsuploader();
+        });
+    </script>
+}

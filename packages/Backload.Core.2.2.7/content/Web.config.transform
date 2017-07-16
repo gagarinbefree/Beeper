@@ -1,0 +1,18 @@
+﻿<configuration>
+  <configSections>
+    <!--
+      IMPORTANT NOTE: Starting with release 2.0 the config file is in the "\Backload" folder.
+      For more on config options and settings refer to the wiki on GitHub (https://github.com/blackcity/Backload) 
+      You can also find all config options in the "Defaults.txt" file (Backload\Config\_Defaults folder).
+    -->
+    <section name="backload" type="Backload.Configuration.BackloadSection, Backload, Version=2, Culture=neutral, PublicKeyToken=02eaf42ab375d363" requirePermission="false" />
+  </configSections>
+  <!-- Note: Web.Backload.config is now in the "\Backload" folder. For previous installations you can leave it in the root folder. -->
+  <backload configSource="Backload\Web.Backload.config" />
+
+  <system.webServer>
+    <!-- Allow http DELETE method-->
+    <modules runAllManagedModulesForAllRequests="true" />
+  </system.webServer>
+  
+</configuration>

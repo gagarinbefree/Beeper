@@ -3,6 +3,7 @@ using Backload.Contracts.Context;
 using Backload.Contracts.Eventing;
 using Backload.Contracts.FileHandler;
 using Backload.Helper;
+using ContactListMvc.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,13 @@ namespace ContactListMvc.Controllers
 {
     public class FileHandlerController : Controller
     {
+        private ILoader _loader;
+
+        public FileHandlerController(ILoader loader)
+        {
+            _loader = loader;
+        }
+
         [HttpPost]
         public async Task<ActionResult> Upload()
         {
@@ -42,6 +50,8 @@ namespace ContactListMvc.Controllers
         [HttpGet]
         public ActionResult LoadToDb(string filename, string comment)
         {
+            _loader.LoadToDb(filename, comment);
+
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }

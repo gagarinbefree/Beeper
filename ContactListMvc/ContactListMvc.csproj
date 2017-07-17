@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Repository\SqlServer\" />
     <Folder Include="Views\FileHandler\" />
     <Folder Include="Views\Upload\" />
   </ItemGroup>

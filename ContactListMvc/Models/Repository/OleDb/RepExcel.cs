@@ -9,6 +9,7 @@ namespace ContactListMvc.Models.Repository.OleDb
 {
     public class RepExcel : Repository, IRepExcel
     {
+        // требует установленого провайдера OleDb
         public System.Data.DataTable LoadFromFile(string filename)
         {
             OleDbConnection con = new OleDbConnection(CreateConnectionString(filename));

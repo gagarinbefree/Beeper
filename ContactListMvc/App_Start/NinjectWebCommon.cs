@@ -62,11 +62,10 @@ namespace ContactListMvc.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ContactListMvc.Models.Repository.IRepExcel>()
-               .To<ContactListMvc.Models.Repository.InteropExcel.RepExcel>();
+               .To<ContactListMvc.Models.Repository.EPPlus.RepExcel>();
 
-            // нужен поставщик
-            //kernel.Bind<ContactListMvc.Models.Repository.IRepExcel>()
-            //   .To<ContactListMvc.Models.Repository.OleDb.RepExcel>();
+            kernel.Bind<ContactListMvc.Models.Repository.IRepSqlServer>()
+               .To<ContactListMvc.Models.Repository.SqlServer.RepSqlServer>();
 
             kernel.Bind<ContactListMvc.Models.ILoader>()
                 .To<ContactListMvc.Models.XlsLoader>();

@@ -5,6 +5,7 @@ using System.Web;
 using OfficeOpenXml;
 using System.Data;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ContactListMvc.Models.Repository.EPPlus
 {
@@ -26,9 +27,20 @@ namespace ContactListMvc.Models.Repository.EPPlus
             {
                 var row = workSheet.Cells[rowNumber, 1, rowNumber, workSheet.Dimension.End.Column];
                 var newRow = res.NewRow();
+
+                int ii = 0;
                 foreach (var cell in row)
                 {
-                    newRow[cell.Start.Column - 1] = cell.Text;
+                    if (ii == 6)
+                    {
+                        Regex rgx = new Regex(@"(^\W*)|(\W*$)");
+                        string city = rgx.Replace(cell.Text, "");
+                        newRow[cell.Start.Column - 1] = city.Length > 1 ? city : "не определен";
+                    }                    
+                    else
+                        newRow[cell.Start.Column - 1] = cell.Text;
+
+                    ii++;
                 }
                 res.Rows.Add(newRow);
             }

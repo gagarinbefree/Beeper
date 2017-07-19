@@ -23,29 +23,64 @@ namespace ContactListMvc.Models.Repository.EPPlus
             {
                 res.Columns.Add(firstRowCell.Text);
             }
+
             for (var rowNumber = 2; rowNumber <= workSheet.Dimension.End.Row; rowNumber++)
             {
                 var row = workSheet.Cells[rowNumber, 1, rowNumber, workSheet.Dimension.End.Column];
                 var newRow = res.NewRow();
 
-                int ii = 0;
-                foreach (var cell in row)
-                {
-                    if (ii == 6)
-                    {
-                        Regex rgx = new Regex(@"(^\W*)|(\W*$)");
-                        string city = rgx.Replace(cell.Text, "");
-                        newRow[cell.Start.Column - 1] = city.Length > 1 ? city : "не определен";
-                    }                    
-                    else
-                        newRow[cell.Start.Column - 1] = cell.Text;
+                var cells = row.Value as object[,];
+                if (cells == null)
+                    continue;
 
-                    ii++;
+                for (var cellnumber = 0; cellnumber < cells.GetLength(1); cellnumber ++)
+                { 
+                    newRow[cellnumber] = _getCellValue(cellnumber, cells[0, cellnumber]);
                 }
+
                 res.Rows.Add(newRow);
             }
 
             return res;
+        }
+
+        private string _getCellValue(int cellnumber, object cell)
+        {
+            if (cell == null)
+                return "";
+
+            string cellvalue = cell.ToString();
+            if (cellnumber == 0)
+                return _phone(cellvalue);
+            else if (cellnumber == 6)
+                return _city(cellvalue);
+            else if (cellnumber == 7)
+                return _birthday(cellvalue);
+            else
+                return cellvalue;
+        }
+
+        private string _phone(string cellvalue)
+        {            
+            Regex rgx = new Regex("[^0-9]");
+
+            return rgx.Replace(cellvalue, "");
+        }
+
+        private string _city(string cellvalue)
+        {            
+            Regex rgx = new Regex(@"(^\W*)|(\W*$)");
+            string city = rgx.Replace(cellvalue, "");
+
+            return city.Length > 1 ? city : "не определен";
+        }
+
+        private string _birthday(string cellvalue)
+        {
+            DateTime dt = DateTime.MinValue;
+            DateTime.TryParse(cellvalue, out dt);
+
+            return dt.ToString("dd.MM.yyyy");
         }
     }
 }

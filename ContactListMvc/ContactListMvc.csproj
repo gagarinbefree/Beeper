@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <NuGetPackageImportStamp>126b0b63</NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -175,8 +176,6 @@
     <Compile Include="Models\ILoader.cs" />
     <Compile Include="Models\Repository\EPPlus\RepExcel.cs" />
     <Compile Include="Models\Repository\EPPlus\Repository.cs" />
-    <Compile Include="Models\Repository\InteropExcel\RepExcel.cs" />
-    <Compile Include="Models\Repository\InteropExcel\Repository.cs" />
     <Compile Include="Models\Repository\IRepExcel.cs" />
     <Compile Include="Models\Repository\IRepSqlServer.cs" />
     <Compile Include="Models\Repository\OleDb\Repository.cs" />
@@ -192,6 +191,7 @@
     <Content Include="App_Data\beeper_log.ldf" />
     <Content Include="App_Data\CreateTempTable.sql" />
     <Content Include="App_Data\TransferFromTempTable.sql" />
+    <Content Include="App_Data\DropTempTable.sql" />
     <Content Include="Backload\Client\blueimp\blob\js\canvas-to-blob.js" />
     <Content Include="Backload\Client\blueimp\blob\js\canvas-to-blob.min.js" />
     <Content Include="Backload\Client\blueimp\bundles\css\bundles.txt" />
@@ -517,35 +517,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\_XlsUpload.cshtml" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="Microsoft.Office.Core">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>8</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Excel">
-      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>9</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="VBIDE">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

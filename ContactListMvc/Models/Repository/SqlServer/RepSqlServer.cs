@@ -33,9 +33,10 @@ namespace ContactListMvc.Models.Repository.SqlServer
                         if (string.Equals(sourceColumn.ColumnName, (string)row["COLUMN_NAME"], StringComparison.OrdinalIgnoreCase))
                         {
                             bulk.ColumnMappings.Add(sourceColumn.ColumnName, (string)row["COLUMN_NAME"]);
-                            
+
                             break;
                         }
+
                     }
                 }
                 

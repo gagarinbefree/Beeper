@@ -6,5 +6,10 @@
 [category] [nvarchar](max) NULL,
 [sex] [nvarchar](max) NULL,
 [city] [nvarchar](max) NULL,
-[birthday] [nvarchar](max) NULL
+[birthday] [nvarchar](max) NULL,
+[isvalid] [int] NULL,
+[idcategory] [int] NULL,
+[idcity] [int] NULL,
+[idsex] int null,
+[id] int identity(1,1) primary key
 ) ON [PRIMARY]

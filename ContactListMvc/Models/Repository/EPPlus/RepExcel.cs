@@ -47,38 +47,36 @@ namespace ContactListMvc.Models.Repository.EPPlus
         private string _getCellValue(int cellnumber, object cell)
         {
             if (cell == null)
-                return "";
-
-            string cellvalue = cell.ToString();
-            if (cellnumber == 0)
-                return _phone(cellvalue);
+                return "";            
+            else if (cellnumber == 0)
+                return _phone(cell);
             else if (cellnumber == 6)
-                return _city(cellvalue);
+                return _city(cell);
             else if (cellnumber == 7)
-                return _birthday(cellvalue);
+                return _birthday(cell);
             else
-                return cellvalue;
+                return cell.ToString();
         }
 
-        private string _phone(string cellvalue)
-        {            
+        private string _phone(object cell)
+        {
             Regex rgx = new Regex("[^0-9]");
 
-            return rgx.Replace(cellvalue, "");
+            return rgx.Replace(cell.ToString(), "");
         }
 
-        private string _city(string cellvalue)
-        {            
+        private string _city(object cell)
+        {
             Regex rgx = new Regex(@"(^\W*)|(\W*$)");
-            string city = rgx.Replace(cellvalue, "");
+            string city = rgx.Replace(cell.ToString(), "");
 
             return city.Length > 1 ? city : "не определен";
         }
 
-        private string _birthday(string cellvalue)
-        {
+        private string _birthday(object cell)
+        {            
             DateTime dt = DateTime.MinValue;
-            DateTime.TryParse(cellvalue, out dt);
+            DateTime.TryParse(cell.ToString(), out dt);
 
             return dt.ToString("dd.MM.yyyy");
         }

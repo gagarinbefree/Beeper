@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 namespace ContactListMvc.Models.Repository.EPPlus
 {
     public class RepExcel : Repository, IRepExcel
-    {
+    {        
         public System.Data.DataTable LoadFromFile(string filename)
         {
             DataTable res = new DataTable();
@@ -21,7 +21,7 @@ namespace ContactListMvc.Models.Repository.EPPlus
 
             foreach (var firstRowCell in workSheet.Cells[1, 1, 1, workSheet.Dimension.End.Column])
             {
-                res.Columns.Add(firstRowCell.Text);
+                res.Columns.Add();
             }
 
             for (var rowNumber = 2; rowNumber <= workSheet.Dimension.End.Row; rowNumber++)
@@ -34,7 +34,9 @@ namespace ContactListMvc.Models.Repository.EPPlus
                     continue;
 
                 for (var cellnumber = 0; cellnumber < cells.GetLength(1); cellnumber ++)
-                { 
+                {
+                    //if (cells[0, cellnumber] != null && cells[0, cellnumber].ToString().IndexOf("Афонин") >= 0) { }
+
                     newRow[cellnumber] = _getCellValue(cellnumber, cells[0, cellnumber]);
                 }
 
@@ -46,20 +48,29 @@ namespace ContactListMvc.Models.Repository.EPPlus
 
         private string _getCellValue(int cellnumber, object cell)
         {
-            if (cell == null)
-                return "";            
-            else if (cellnumber == 0)
-                return _phone(cell);
-            else if (cellnumber == 6)
-                return _city(cell);
-            else if (cellnumber == 7)
-                return _birthday(cell);
-            else
-                return cell.ToString();
+            switch (cellnumber)
+            {
+                case 0:
+                    return _phone(cell);
+                case 6:
+                    return _city(cell);
+                case 7:
+                    return _birthday(cell);
+                default:
+                    return _plain(cell);
+            }            
+        }
+
+        private string _plain(object cell)
+        {
+            return cell != null ? cell.ToString() : null;
         }
 
         private string _phone(object cell)
         {
+            if (cell == null)
+                return null;
+
             Regex rgx = new Regex("[^0-9]");
 
             return rgx.Replace(cell.ToString(), "");
@@ -67,18 +78,24 @@ namespace ContactListMvc.Models.Repository.EPPlus
 
         private string _city(object cell)
         {
+            if (cell == null)
+                return "Не определен";
+                
             Regex rgx = new Regex(@"(^\W*)|(\W*$)");
+            
             string city = rgx.Replace(cell.ToString(), "");
 
-            return city.Length > 1 ? city : "не определен";
+            return city.Length > 1 ? city : "Не определен";
         }
 
         private string _birthday(object cell)
-        {            
-            DateTime dt = DateTime.MinValue;
-            DateTime.TryParse(cell.ToString(), out dt);
+        {
+            if (cell == null)
+                return null;
 
-            return dt.ToString("dd.MM.yyyy");
+            DateTime dt;
+            
+            return DateTime.TryParse(cell.ToString(), out dt) ? dt.ToString("dd.MM.yyyy") : null;
         }
     }
 }

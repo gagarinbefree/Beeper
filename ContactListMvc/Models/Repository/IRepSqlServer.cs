@@ -10,5 +10,7 @@ namespace ContactListMvc.Models.Repository
     public interface IRepSqlServer
     {        
         void Bulk(DataTable dt);
+
+        void DropTempTable();
     }
 }

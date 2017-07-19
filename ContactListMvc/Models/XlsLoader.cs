@@ -21,7 +21,10 @@ namespace ContactListMvc.Models
         public bool LoadToDb(string filename, string comment)
         {
             DataTable dt = _excel.LoadFromFile(filename);
-            
+
+            // на время разработки, потом убрать
+            _sqlServer.DropTempTable();
+
             _sqlServer.Bulk(dt);
 
             return dt.Rows.Count > 0;

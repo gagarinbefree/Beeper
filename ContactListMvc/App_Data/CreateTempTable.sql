@@ -7,4 +7,4 @@
 [sex] [nvarchar](max) NULL,
 [city] [nvarchar](max) NULL,
 [birthday] [nvarchar](max) NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+) ON [PRIMARY]

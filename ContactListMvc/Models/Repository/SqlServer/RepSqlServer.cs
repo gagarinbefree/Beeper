@@ -42,5 +42,19 @@ namespace ContactListMvc.Models.Repository.SqlServer
                 bulk.WriteToServer(dt);
             }
         }
+
+        public void DropTempTable()
+        {
+            string query = LoadSqlFile("DropTempTable.sql");
+
+            using (SqlConnection connection = new SqlConnection(base.ConnectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

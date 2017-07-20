@@ -13,7 +13,7 @@
         this.dataSubmit = null;
 
         this.url = "/FileHandler/Upload"
-        this.urltodb = "/FileHandler/LoadToDb?filename="
+        this.urltodb = "/FileHandler/LoadToDb"
 
         this.init();
     }
@@ -80,9 +80,28 @@
 
         if (data.result.files.length > 0) {
             this.elImageUrl.val(data.result.files[0].url);
+            
+            origfilename = data.originalFiles[0].name;
             filename = data.result.files[0].name;
-            if ($.type(filename) === "string")
-                $.get(this.urltodb + filename + '&comment=' + self.elInputComment.val() , function () { self.doneLoadToDB() });
+                        
+            //$.ajax({
+            //    url: this.urltodb
+            //        + "?filename=" + filename
+            //        + "&origfilename=" + encodeURI(origfilename)
+            //        + "&comment="
+            //        + self.elInputComment.val(),
+            //    type: 'GET',
+            //    dataType: 'json',
+            //    contentType: 'application/json; charset=utf-8',
+            //    success: function () { self.doneLoadToDB() },
+            //    error: function (error) { }
+            //});
+
+            $.get(this.urltodb
+                + "?filename=" + filename
+                + "&origfilename=" + encodeURI(origfilename)
+                + "&comment="
+                + self.elInputComment.val(), function () { self.doneLoadToDB() });
         }
         else
             this.elImageUrl.val("");

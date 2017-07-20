@@ -18,7 +18,7 @@ namespace ContactListMvc.Models
             _sqlServer = sqlServer;
         }
 
-        public bool LoadToDb(string filename, string comment)
+        public bool LoadToDb(string filename, string origfilename, string comment)
         {
             DataTable dt = _excel.LoadFromFile(filename);
 
@@ -27,7 +27,7 @@ namespace ContactListMvc.Models
 
             _sqlServer.DataUploadToDB(dt);
 
-            _sqlServer.InsertIntoLists(filename, comment);
+            _sqlServer.InsertIntoLists(origfilename, comment);
 
             return dt.Rows.Count > 0;
         }

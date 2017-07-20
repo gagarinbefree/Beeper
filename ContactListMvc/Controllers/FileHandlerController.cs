@@ -34,11 +34,12 @@ namespace ContactListMvc.Controllers
                 using (var provider = new BackloadDataProvider(this.Request))
                 {
                     var name = provider.Files[0].FileName;
-                    provider.Files[0].FileName = string.Format("{0}.{1}", Guid.NewGuid(), "xlsx");
+                    provider.Files[0].FileName = string.Format("{0}.{1}", Guid.NewGuid(), "xlsx");                    
 
                     handler.Init(provider);
                     IBackloadResult result = await handler.Execute();
-                    
+                    result.ContentType = "Content-Type: application/json; charset=utf-8";
+
                     return ResultCreator.Create(result);
                 }
             }
@@ -49,9 +50,9 @@ namespace ContactListMvc.Controllers
         }
         
         [HttpGet]
-        public ActionResult LoadToDb(string filename, string comment)
+        public ActionResult LoadToDb(string filename, string origfilename, string comment)
         {
-            _loader.LoadToDb(filename, comment);
+            _loader.LoadToDb(filename, origfilename, comment);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }

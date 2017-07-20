@@ -8,6 +8,6 @@ namespace ContactListMvc.Models
 {
     public interface ILoader
     {
-        bool LoadToDb(string filename, string comment);
+        bool LoadToDb(string filename, string origfilename, string comment);
     }
 }

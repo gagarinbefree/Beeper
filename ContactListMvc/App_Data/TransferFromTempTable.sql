@@ -62,7 +62,7 @@ join (select z.lastname, z.firstname as pname, z.middlename
 ) zz on zz.lastname = qw.lastname
 and zz.pname = qw.name
 and (qw.middlename is null 
-or zz.middlename = qw.middlename)
+or zz.middlename = qw.middlename);
 
 delete qw
 from templist qw
@@ -78,8 +78,6 @@ and qw.id > zz.mid;
 
 delete qw
 from templist qw
-
-
 join (select z.phone, z.lastname, z.name, z.middlename, min(z.id) mid
 	from templist z
 	where z.phone is not null
@@ -89,8 +87,6 @@ and zz.lastname = qw.lastname
 and zz.name = qw.name
 and zz.middlename = qw.middlename
 and qw.id > zz.mid;
-
-
 
 update t set
 t.isvalid = 0
@@ -114,6 +110,3 @@ end;
 insert into persons (lastname, firstname, middlename, sex, idcity, idcategory, isvalid)
 select t.lastname, t.name, t.middlename, t.idsex, t.idcity, t.idcategory, t.isvalid
 from templist t;
-
-
-

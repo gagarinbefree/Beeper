@@ -79,5 +79,22 @@ namespace ContactListMvc.Models.Repository.SqlServer
                 }
             }
         }
+
+        public void InsertIntoLists(string file, string comment)
+        {
+            string query = LoadSqlFile("InsertIntoLists.sql");
+
+            using (SqlConnection connection = new SqlConnection(base.ConnectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@file", file);
+                    cmd.Parameters.AddWithValue("@comment", comment);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }       
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace ContactListMvc.Models.Repository
     public interface IRepSqlServer
     {        
         void DataUploadToDB(DataTable dt);
-
         void DropTempTable();
+        void InsertIntoLists(string file, string comment);
     }
 }

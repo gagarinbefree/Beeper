@@ -27,6 +27,8 @@ namespace ContactListMvc.Models
 
             _sqlServer.DataUploadToDB(dt);
 
+            _sqlServer.InsertIntoLists(filename, comment);
+
             return dt.Rows.Count > 0;
         }
     }

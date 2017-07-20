@@ -10,5 +10,7 @@ namespace ContactListMvc.Models.Repository
     public interface IRepExcel
     {
         DataTable LoadFromFile(string filename);
+
+        DataTable LoadFromPartFile(string filename, int page, int pagesize);
     }
 }

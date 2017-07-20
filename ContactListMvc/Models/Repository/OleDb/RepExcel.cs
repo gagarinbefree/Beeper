@@ -33,5 +33,10 @@ namespace ContactListMvc.Models.Repository.OleDb
 
             return tb;
         }
+
+        public DataTable LoadFromPartFile(string filename, int page, int pagesize)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -189,6 +189,7 @@
   <ItemGroup>
     <Content Include="App_Data\beeper.mdf" />
     <Content Include="App_Data\beeper_log.ldf" />
+    <Content Include="App_Data\CreateBD.sql" />
     <Content Include="App_Data\CreateTempTable.sql" />
     <Content Include="App_Data\TransferFromTempTable.sql" />
     <Content Include="App_Data\DropTempTable.sql" />

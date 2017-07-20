@@ -35,8 +35,42 @@ namespace ContactListMvc.Models.Repository.EPPlus
 
                 for (var cellnumber = 0; cellnumber < cells.GetLength(1); cellnumber ++)
                 {
-                    //if (cells[0, cellnumber] != null && cells[0, cellnumber].ToString().IndexOf("Афонин") >= 0) { }
+                    newRow[cellnumber] = _getCellValue(cellnumber, cells[0, cellnumber]);
+                }
 
+                res.Rows.Add(newRow);
+            }
+
+            return res;
+        }
+
+        public DataTable LoadFromPartFile(string filename, int page, int pagesize)
+        {
+            DataTable res = new DataTable();
+
+            FileInfo file = new FileInfo(String.Format("{0}{1}", ServerPath, filename));
+            ExcelPackage excel = new ExcelPackage(file);
+            ExcelWorksheet workSheet = excel.Workbook.Worksheets.First();
+
+            foreach (var firstRowCell in workSheet.Cells[1, 1, 1, workSheet.Dimension.End.Column])
+            {
+                res.Columns.Add();
+            }
+
+            int startIndex = page * pagesize + 1;
+            int endIndex = page * pagesize + pagesize + 1;
+            endIndex = endIndex < workSheet.Dimension.End.Row ? endIndex : workSheet.Dimension.End.Row;
+            for (var rowNumber = startIndex; rowNumber <= endIndex; rowNumber++)
+            {
+                var row = workSheet.Cells[rowNumber, 1, rowNumber, workSheet.Dimension.End.Column];
+                var newRow = res.NewRow();
+
+                var cells = row.Value as object[,];
+                if (cells == null)
+                    continue;
+
+                for (var cellnumber = 0; cellnumber < cells.GetLength(1); cellnumber++)
+                {
                     newRow[cellnumber] = _getCellValue(cellnumber, cells[0, cellnumber]);
                 }
 
@@ -96,6 +130,6 @@ namespace ContactListMvc.Models.Repository.EPPlus
             DateTime dt;
             
             return DateTime.TryParse(cell.ToString(), out dt) ? dt.ToString("dd.MM.yyyy") : null;
-        }
+        }        
     }
 }

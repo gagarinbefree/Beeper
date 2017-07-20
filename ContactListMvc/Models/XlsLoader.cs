@@ -25,7 +25,7 @@ namespace ContactListMvc.Models
             // на время разработки, потом убрать
             _sqlServer.DropTempTable();
 
-            _sqlServer.Bulk(dt);
+            _sqlServer.DataUploadToDB(dt);
 
             return dt.Rows.Count > 0;
         }

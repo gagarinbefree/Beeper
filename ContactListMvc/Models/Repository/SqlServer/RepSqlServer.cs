@@ -8,39 +8,61 @@ using System.Web;
 namespace ContactListMvc.Models.Repository.SqlServer
 {
     public class RepSqlServer : Repository, IRepSqlServer
-    {        
-        public void Bulk(System.Data.DataTable dt)
-        {
-            string table = "templist";
+    {
+        private string _tablename = "templist";
 
-            using (SqlConnection connection = new SqlConnection(base.ConnectionString))
-            {                
-                var bulk = new SqlBulkCopy(connection);
-                bulk.DestinationTableName = table;
+        public void DataUploadToDB(DataTable data)
+        {            
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
                 connection.Open();
 
-                string query = LoadSqlFile("CreateTempTable.sql");
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    cmd.ExecuteNonQuery();
-                }
+                _createTempTable(connection);
 
-                var schema = connection.GetSchema("Columns", new[] { null, null, table, null });
-                foreach (DataColumn sourceColumn in dt.Columns)
+                _bulk(connection, data);
+
+                _transfer(connection);
+            }
+        }
+
+        private void _createTempTable(SqlConnection connection)
+        {
+            string query = LoadSqlFile("CreateTempTable.sql");
+            using (SqlCommand cmd = new SqlCommand(query, connection))
+            {
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void _bulk(SqlConnection connection, DataTable data)
+        {
+            var bulk = new SqlBulkCopy(connection);
+            bulk.DestinationTableName = _tablename;            
+
+            var schema = connection.GetSchema("Columns", new[] { null, null, _tablename, null });
+            foreach (DataColumn sourceColumn in data.Columns)
+            {
+                foreach (DataRow row in schema.Rows)
                 {
-                    foreach (DataRow row in schema.Rows)
+                    if (string.Equals(sourceColumn.ColumnName, (string)row["COLUMN_NAME"], StringComparison.OrdinalIgnoreCase))
                     {
-                        if (string.Equals(sourceColumn.ColumnName, (string)row["COLUMN_NAME"], StringComparison.OrdinalIgnoreCase))
-                        {
-                            bulk.ColumnMappings.Add(sourceColumn.ColumnName, (string)row["COLUMN_NAME"]);
+                        bulk.ColumnMappings.Add(sourceColumn.ColumnName, (string)row["COLUMN_NAME"]);
 
-                            break;
-                        }
-
+                        break;
                     }
                 }
-                
-                bulk.WriteToServer(dt);
+            }
+
+            bulk.WriteToServer(data);
+        }
+
+        private void _transfer(SqlConnection connection)
+        {
+            string query = LoadSqlFile("TransferFromTempTable.sql");
+
+            using (SqlCommand cmd = new SqlCommand(query, connection))
+            {
+                cmd.ExecuteNonQuery();
             }
         }
 

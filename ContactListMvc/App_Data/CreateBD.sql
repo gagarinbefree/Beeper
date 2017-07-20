@@ -3,6 +3,14 @@ drop table if exists attributes;
 drop table if exists personattributes;
 drop table if exists categories;
 drop table if exists persons;
+drop table if exists lists;
+
+create table lists (
+	id int identity(1,1) primary key
+	, [file] nvarchar(255) not null
+	, dt datetime default(getdate()) not null
+	, comment nvarchar(255) null
+);
 
 create table categories (
 	id int identity(1,1) primary key
@@ -25,6 +33,7 @@ create table persons (
     , firstname nvarchar(255) not null
 	, middlename nvarchar(255)	
 	, sex int 
+	, birthday date
 	, idcity int
 	, idcategory int
 	, isvalid int not null

@@ -6,7 +6,7 @@
 	, category nvarchar(max) NULL
 	, sex nvarchar(max) NULL
 	, city nvarchar(max) NULL
-	, birthday nvarchar(max) NULL
+	, birthday datetime NULL
 	, isvalid int NULL
 	, idcategory int NULL
 	, idcity int NULL

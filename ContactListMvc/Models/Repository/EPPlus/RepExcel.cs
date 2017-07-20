@@ -80,7 +80,7 @@ namespace ContactListMvc.Models.Repository.EPPlus
             return res;
         }
 
-        private string _getCellValue(int cellnumber, object cell)
+        private object _getCellValue(int cellnumber, object cell)
         {
             switch (cellnumber)
             {
@@ -95,12 +95,12 @@ namespace ContactListMvc.Models.Repository.EPPlus
             }            
         }
 
-        private string _plain(object cell)
+        private object _plain(object cell)
         {
             return cell != null ? cell.ToString() : null;
         }
 
-        private string _phone(object cell)
+        private object _phone(object cell)
         {
             if (cell == null)
                 return null;
@@ -110,7 +110,7 @@ namespace ContactListMvc.Models.Repository.EPPlus
             return rgx.Replace(cell.ToString(), "");
         }
 
-        private string _city(object cell)
+        private object _city(object cell)
         {
             if (cell == null)
                 return "Не определен";
@@ -122,14 +122,18 @@ namespace ContactListMvc.Models.Repository.EPPlus
             return city.Length > 1 ? city : "Не определен";
         }
 
-        private string _birthday(object cell)
+        private object _birthday(object cell)
         {
             if (cell == null)
                 return null;
 
-            DateTime dt;
-            
-            return DateTime.TryParse(cell.ToString(), out dt) ? dt.ToString("dd.MM.yyyy") : null;
+            DateTime dt = DateTime.MinValue;
+            bool isParse = DateTime.TryParse(cell.ToString(), out dt);
+
+            if (isParse)
+                return dt;
+
+            return null;
         }        
     }
 }

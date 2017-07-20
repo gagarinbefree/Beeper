@@ -1,4 +1,4 @@
-insert into cities (name)
+ï»¿insert into cities (name)
 select distinct t.city 
 from templist t
 where  t.city is not null
@@ -16,8 +16,8 @@ and not exists(select 1
 	where c.name = t.category
 );
 
-update templist set
-idcategory = (select c.id 
+update templist 
+set idcategory = (select c.id 
 	from categories c 
 	where c.name = templist.category
 )
@@ -37,8 +37,7 @@ join (select z.phone, min(id) mid
 	group by z.phone
 ) z on z.mid = qw.id;
 
-update z set
-z.isvalid = 0
+update z set z.isvalid = 0
 from templist z
 where z.isvalid is null
 and not exists(
@@ -50,8 +49,7 @@ and not exists(
 	and zz.middlename = z.middlename
 );
 
-update q set
-q.isvalid = 1
+update q set q.isvalid = 1
 from templist q
 where q.isvalid is null;
 
@@ -88,8 +86,7 @@ and zz.name = qw.name
 and zz.middlename = qw.middlename
 and qw.id > zz.mid;
 
-update t set
-t.isvalid = 0
+update t set t.isvalid = 0
 from templist t
 join (
 	select p.firstname, p.lastname, p.middlename, pa.val
@@ -102,11 +99,11 @@ and qw.middlename = t.middlename;
 
 update templist 
 set idsex = case
-	when lower(sex) = N'ì' then 1
-	when lower(sex) = N'æ' then 0
+	when lower(sex) = N'Ð¼' then 1
+	when lower(sex) = N'Ð¶' then 0
 	else null 
 end;
 
-insert into persons (lastname, firstname, middlename, sex, idcity, idcategory, isvalid)
-select t.lastname, t.name, t.middlename, t.idsex, t.idcity, t.idcategory, t.isvalid
+insert into persons (lastname, firstname, middlename, sex, idcity, idcategory, isvalid, birthday)
+select t.lastname, t.name, t.middlename, t.idsex, t.idcity, t.idcategory, t.isvalid, t.birthday
 from templist t;

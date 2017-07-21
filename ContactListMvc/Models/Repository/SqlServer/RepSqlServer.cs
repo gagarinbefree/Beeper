@@ -11,7 +11,7 @@ namespace ContactListMvc.Models.Repository.SqlServer
     {
         private string _tablename = "templist";
 
-        public void DataUploadToDB(DataTable data)
+        public void DataUploadToDB(DataTable data, string file, string comment)
         {            
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -21,7 +21,7 @@ namespace ContactListMvc.Models.Repository.SqlServer
 
                 _bulk(connection, data);
 
-                _transfer(connection);
+                _transfer(connection, file, comment);
             }
         }
 
@@ -56,12 +56,15 @@ namespace ContactListMvc.Models.Repository.SqlServer
             bulk.WriteToServer(data);
         }
 
-        private void _transfer(SqlConnection connection)
+        private void _transfer(SqlConnection connection, string file, string comment)
         {
             string query = LoadSqlFile("TransferFromTempTable.sql");
 
             using (SqlCommand cmd = new SqlCommand(query, connection))
             {
+                cmd.Parameters.AddWithValue("@file", file);
+                cmd.Parameters.AddWithValue("@comment", comment);
+
                 cmd.ExecuteNonQuery();
             }
         }
@@ -74,12 +77,12 @@ namespace ContactListMvc.Models.Repository.SqlServer
             {
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
+                {                   
                     cmd.ExecuteNonQuery();
                 }
             }
         }
-
+       
         public void InsertIntoLists(string file, string comment)
         {
             string query = LoadSqlFile("InsertIntoLists.sql");

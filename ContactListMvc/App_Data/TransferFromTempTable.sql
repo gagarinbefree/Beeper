@@ -107,3 +107,5 @@ end;
 insert into persons (lastname, firstname, middlename, sex, idcity, idcategory, isvalid, birthday)
 select t.lastname, t.name, t.middlename, t.idsex, t.idcity, t.idcategory, t.isvalid, t.birthday
 from templist t;
+
+insert into lists ([file], comment) values (@file, @comment)

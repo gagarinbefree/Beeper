@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 namespace ContactListMvc.Models.Repository
 {
     public interface IRepSqlServer
-    {        
-        void DataUploadToDB(DataTable dt);
-        void DropTempTable();
+    {
+        void DataUploadToDB(DataTable data, string file, string comment);
+
+        //
+        void DropTempTable();        
         void InsertIntoLists(string file, string comment);
     }
 }

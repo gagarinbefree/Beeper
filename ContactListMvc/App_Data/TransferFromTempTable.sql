@@ -1,4 +1,7 @@
-﻿insert into cities (name)
+﻿delete from templist
+where len(phone) < 10
+
+insert into cities (name)
 select distinct t.city 
 from templist t
 where  t.city is not null
@@ -22,6 +25,7 @@ set idcategory = (select c.id
 	where c.name = templist.category
 )
 where idcategory is null;
+
 
 update templist set idcity = (select c.id 
 	from cities c 

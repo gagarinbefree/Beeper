@@ -12,4 +12,5 @@
 	, idcity int NULL
 	, idsex int null
 	, id int identity(1,1) primary key
+	, idperson int
 ) on [primary]

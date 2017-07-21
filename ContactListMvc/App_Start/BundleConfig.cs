@@ -15,9 +15,11 @@ namespace ContactListMvc
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/nprogress.js",
                 "~/Scripts/app/xlsuploader.js",
-                "~/Backload/Client/blueimp/fileupload/js/jquery.fileupload.js"));
+                "~/Backload/Client/blueimp/fileupload/js/jquery.fileupload.js",
+                "~/Scripts/gijgo/combined/gijgo.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/gijgo/combined/gijgo.css", 
                 "~/Content/bootstrap-theme.css",
                 "~/Content/site.css",
                 "~/Content/nprogress.css"));            

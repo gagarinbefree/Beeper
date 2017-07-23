@@ -4,10 +4,51 @@
 
 @Html.Partial("_XlsUpload")
 
+@*--gijgo--*@
+<div class="gj-margin-top-10">
+    <div class="gj-float-left">
+        <form class="display-inline">
+            <input id="txtLastName" type="text" placeholder="Last name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
+            <input id="txtFirstName" type="text" placeholder="Name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
+            <input id="txtMiddleName" type="text" placeholder="Middle name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
+            <button id="btnSearch" type="button" class="gj-button-md">Search</button>
+            <button id="btnClear" type="button" class="gj-button-md">Clear</button>
+        </form>
+    </div>    
+</div>
+
+<div class="gj-clear-both"></div>
+<div class="gj-margin-top-10">
+    <table id="grid"></table>
+</div>
+@*--gijgo--*@
+
 @section Scripts {
     <script type="text/javascript">
+        var grid;
+        var loader;
+
         $(document).ready(function () {
-            new xlsuploader();
+            loader = new xlsuploader();
+
+            grid = $('#grid').grid({
+                primaryKey: 'id',
+                dataSource: '/Home/GetPersons',
+                columns: [
+                    { field: 'lastName', title: "Фамилия", sortable: true },
+                    { field: 'firstName', title: "Имя", sortable: true },
+                    { field: 'middleName', title: "Отчество", sortable: true },
+                ],
+                pager: { limit: 5 }
+            });
+            $('#btnSearch').on('click', function () {
+                grid.reload({ name: $('#txtName').val(), placeOfBirth: $('#txtPlaceOfBirth').val() });
+            });
+            $('#btnClear').on('click', function () {
+                $('#txtName').val('');
+                $('#txtPlaceOfBirth').val('');
+                grid.reload({ name: '', placeOfBirth: '' });
+            });
         });
     </script>
 }

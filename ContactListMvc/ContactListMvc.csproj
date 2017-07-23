@@ -186,16 +186,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetBeeper.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repository\EF\attributes.cs">
+    <Compile Include="Models\Repository\EF\attribute.cs">
       <DependentUpon>ModelBeeperBd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repository\EF\categories.cs">
+    <Compile Include="Models\Repository\EF\category.cs">
       <DependentUpon>ModelBeeperBd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repository\EF\cities.cs">
-      <DependentUpon>ModelBeeperBd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Repository\EF\lists.cs">
+    <Compile Include="Models\Repository\EF\city.cs">
       <DependentUpon>ModelBeeperBd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repository\EF\ModelBeeperBd.Context.cs">
@@ -213,10 +210,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelBeeperBd.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repository\EF\personattributes.cs">
+    <Compile Include="Models\Repository\EF\person.cs">
       <DependentUpon>ModelBeeperBd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repository\EF\persons.cs">
+    <Compile Include="Models\Repository\EF\personattribute.cs">
       <DependentUpon>ModelBeeperBd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repository\EF\RepEf.cs" />

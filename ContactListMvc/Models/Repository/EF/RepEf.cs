@@ -7,9 +7,9 @@ namespace ContactListMvc.Models.Repository.EF
 {
     public class RepEf : Repository, IRepEf
     {
-        public List<persons> GetPersons(int? page, int? limit, string sortBy, string direction)
+        public List<person> GetPersons(int? page, int? limit, string sortBy, string direction)
         {
-            List<persons> records;
+            List<person> records;
             int total;
             using (BeeperDbContext context = new BeeperDbContext())
             {

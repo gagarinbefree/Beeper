@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BeeperDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="attributes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="cities">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="personattributes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idperson" Type="int" Nullable="false" />
+          <Property Name="idattribute" Type="int" Nullable="false" />
+          <Property Name="val" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="persons">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="middlename" Type="nvarchar" MaxLength="255" />
+          <Property Name="sex" Type="int" />
+          <Property Name="birthday" Type="date" />
+          <Property Name="idcity" Type="int" />
+          <Property Name="idcategory" Type="int" />
+          <Property Name="isvalid" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_personattributes_attributes">
+          <End Role="attributes" Type="Self.attributes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="personattributes" Type="Self.personattributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attributes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personattributes">
+              <PropertyRef Name="idattribute" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personattributes_persons">
+          <End Role="persons" Type="Self.persons" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="personattributes" Type="Self.personattributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personattributes">
+              <PropertyRef Name="idperson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_persons_categories">
+          <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
+          <End Role="persons" Type="Self.persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="persons">
+              <PropertyRef Name="idcategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_persons_cities">
+          <End Role="cities" Type="Self.cities" Multiplicity="0..1" />
+          <End Role="persons" Type="Self.persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="persons">
+              <PropertyRef Name="idcity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BeeperDbModelStoreContainer">
+          <EntitySet Name="attributes" EntityType="Self.attributes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cities" EntityType="Self.cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personattributes" EntityType="Self.personattributes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="persons" EntityType="Self.persons" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_personattributes_attributes" Association="Self.FK_personattributes_attributes">
+            <End Role="attributes" EntitySet="attributes" />
+            <End Role="personattributes" EntitySet="personattributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personattributes_persons" Association="Self.FK_personattributes_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="personattributes" EntitySet="personattributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_persons_categories" Association="Self.FK_persons_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="persons" EntitySet="persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_persons_cities" Association="Self.FK_persons_cities">
+            <End Role="cities" EntitySet="cities" />
+            <End Role="persons" EntitySet="persons" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BeeperDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="attribute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="personattributes" Relationship="Self.FK_personattributes_attributes" FromRole="attributes" ToRole="personattributes" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="persons" Relationship="Self.FK_persons_categories" FromRole="categories" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="persons" Relationship="Self.FK_persons_cities" FromRole="cities" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="personattribute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idperson" Type="Int32" Nullable="false" />
+          <Property Name="idattribute" Type="Int32" Nullable="false" />
+          <Property Name="val" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="attribute" Relationship="Self.FK_personattributes_attributes" FromRole="personattributes" ToRole="attributes" />
+          <NavigationProperty Name="person" Relationship="Self.FK_personattributes_persons" FromRole="personattributes" ToRole="persons" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lastname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="middlename" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sex" Type="Int32" />
+          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="idcity" Type="Int32" />
+          <Property Name="idcategory" Type="Int32" />
+          <Property Name="isvalid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="category" Relationship="Self.FK_persons_categories" FromRole="persons" ToRole="categories" />
+          <NavigationProperty Name="city" Relationship="Self.FK_persons_cities" FromRole="persons" ToRole="cities" />
+          <NavigationProperty Name="personattributes" Relationship="Self.FK_personattributes_persons" FromRole="persons" ToRole="personattributes" />
+        </EntityType>
+        <Association Name="FK_personattributes_attributes">
+          <End Role="attributes" Type="Self.attribute" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="personattributes" Type="Self.personattribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attributes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personattributes">
+              <PropertyRef Name="idattribute" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_persons_categories">
+          <End Role="categories" Type="Self.category" Multiplicity="0..1" />
+          <End Role="persons" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="persons">
+              <PropertyRef Name="idcategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_persons_cities">
+          <End Role="cities" Type="Self.city" Multiplicity="0..1" />
+          <End Role="persons" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="persons">
+              <PropertyRef Name="idcity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_personattributes_persons">
+          <End Role="persons" Type="Self.person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="personattributes" Type="Self.personattribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personattributes">
+              <PropertyRef Name="idperson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BeeperDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="attributes" EntityType="Self.attribute" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="cities" EntityType="Self.city" />
+          <EntitySet Name="personattributes" EntityType="Self.personattribute" />
+          <EntitySet Name="persons" EntityType="Self.person" />
+          <AssociationSet Name="FK_personattributes_attributes" Association="Self.FK_personattributes_attributes">
+            <End Role="attributes" EntitySet="attributes" />
+            <End Role="personattributes" EntitySet="personattributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_persons_categories" Association="Self.FK_persons_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="persons" EntitySet="persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_persons_cities" Association="Self.FK_persons_cities">
+            <End Role="cities" EntitySet="cities" />
+            <End Role="persons" EntitySet="persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personattributes_persons" Association="Self.FK_personattributes_persons">
+            <End Role="persons" EntitySet="persons" />
+            <End Role="personattributes" EntitySet="personattributes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BeeperDbModelStoreContainer" CdmEntityContainer="BeeperDbEntities">
+          <EntitySetMapping Name="attributes">
+            <EntityTypeMapping TypeName="BeeperDbModel.attribute">
+              <MappingFragment StoreEntitySet="attributes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="BeeperDbModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cities">
+            <EntityTypeMapping TypeName="BeeperDbModel.city">
+              <MappingFragment StoreEntitySet="cities">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personattributes">
+            <EntityTypeMapping TypeName="BeeperDbModel.personattribute">
+              <MappingFragment StoreEntitySet="personattributes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idperson" ColumnName="idperson" />
+                <ScalarProperty Name="idattribute" ColumnName="idattribute" />
+                <ScalarProperty Name="val" ColumnName="val" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="persons">
+            <EntityTypeMapping TypeName="BeeperDbModel.person">
+              <MappingFragment StoreEntitySet="persons">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="idcity" ColumnName="idcity" />
+                <ScalarProperty Name="idcategory" ColumnName="idcategory" />
+                <ScalarProperty Name="isvalid" ColumnName="isvalid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

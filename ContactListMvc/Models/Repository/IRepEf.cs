@@ -9,6 +9,6 @@ namespace ContactListMvc.Models.Repository
 {
     public interface IRepEf
     {
-        List<persons> GetPersons(int? page, int? limit, string sortBy, string direction);
+        List<person> GetPersons(int? page, int? limit, string sortBy, string direction);
     }
 }

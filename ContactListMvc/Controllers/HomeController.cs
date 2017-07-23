@@ -22,7 +22,7 @@ namespace ContactListMvc.Controllers
             return View();
         }       
  
-        public JsonResult Get(int? page, int? limit, string sortBy, string direction)
+        public JsonResult GetPersons(int? page, int? limit, string sortBy, string direction)
         {
             var records = _repository.GetPersons(page, limit, sortBy, direction);
 

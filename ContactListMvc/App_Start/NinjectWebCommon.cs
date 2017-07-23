@@ -61,6 +61,9 @@ namespace ContactListMvc.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ContactListMvc.Models.Repository.IRepEf>()
+               .To<ContactListMvc.Models.Repository.EF.RepEf>();
+
             kernel.Bind<ContactListMvc.Models.Repository.IRepExcel>()
                .To<ContactListMvc.Models.Repository.EPPlus.RepExcel>();
 

@@ -52,9 +52,16 @@ namespace ContactListMvc.Controllers
         [HttpGet]
         public ActionResult LoadToDb(string filename, string origfilename, string comment)
         {
-            _loader.LoadToDb(filename, origfilename, comment);
+            try
+            {
+                _loader.LoadToDb(filename, origfilename, comment);
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
     }
 }

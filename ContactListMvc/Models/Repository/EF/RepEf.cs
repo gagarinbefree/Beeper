@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ContactListMvc.Models.Repository.EF
 {
     public class RepEf : Repository, IRepEf
     {
-        public List<person> GetPersons(int? page, int? limit, string sortBy, string direction)
+        public JsonResult GetPersons(int? page, int? limit, string sortBy, string direction)
         {
-            List<person> records;
+            List<persons> records;
             int total;
             using (BeeperDbContext context = new BeeperDbContext())
             {
                 var query = context.persons.Select(c => c);
-                
-
+                                             
                 //if (!string.IsNullOrWhiteSpace(name))
                 //{
                 //    query = query.Where(q => q.Name.Contains(name));
@@ -75,7 +75,7 @@ namespace ContactListMvc.Models.Repository.EF
                     records = query.ToList();
                 }
 
-                return records;
+                return Json(records);
             }
         }
     }

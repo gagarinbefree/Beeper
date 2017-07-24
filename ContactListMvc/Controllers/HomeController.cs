@@ -24,9 +24,9 @@ namespace ContactListMvc.Controllers
  
         public JsonResult GetPersons(int? page, int? limit, string sortBy, string direction)
         {
-            var records = _repository.GetPersons(page, limit, sortBy, direction);
+            var model = _repository.GetPersons(page, limit, sortBy, direction);
 
-            return this.Json(new { records }, JsonRequestBehavior.AllowGet);
+            return this.Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }

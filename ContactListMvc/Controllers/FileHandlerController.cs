@@ -54,14 +54,11 @@ namespace ContactListMvc.Controllers
         {
             try
             {
-                _loader.LoadToDb(filename, origfilename, comment);
+                _loader.LoadToDb(filename, origfilename, comment);                
+            }
+            catch (Exception ex) { }
 
-                return new HttpStatusCodeResult(HttpStatusCode.OK);
-            }
-            catch (Exception ex)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.Message);
-            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace ContactListMvc.Models.Repository.EF
+namespace ContactListMvc.Models.Repository.EF.DTO
 {
     using System;
     using System.Collections.Generic;

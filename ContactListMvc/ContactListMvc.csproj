@@ -188,7 +188,7 @@
     <Compile Include="Models\Repository\EF\DTO\personattributes.cs" />
     <Compile Include="Models\Repository\EF\DTO\persons.cs" />
     <Compile Include="Models\Repository\EF\RepEf.cs" />
-    <Compile Include="Models\Repository\EF\DTO\Repository.cs" />
+    <Compile Include="Models\Repository\EF\Repository.cs" />
     <Compile Include="Models\Repository\EPPlus\RepExcel.cs" />
     <Compile Include="Models\Repository\EPPlus\Repository.cs" />
     <Compile Include="Models\Repository\IRepEf.cs" />
@@ -199,6 +199,7 @@
     <Compile Include="Models\Repository\SqlServer\Repository.cs" />
     <Compile Include="Models\Repository\SqlServer\RepSqlServer.cs" />
     <Compile Include="Models\ViewModels\ContactListViewModel.cs" />
+    <Compile Include="Models\ViewModels\PersonViewModel.cs" />
     <Compile Include="Models\XlsLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -465,6 +466,7 @@
     <Content Include="Content\gijgo\modular\grid\grid.min.css" />
     <Content Include="Content\gijgo\modular\tree\tree.css" />
     <Content Include="Content\gijgo\modular\tree\tree.min.css" />
+    <Content Include="Content\material-icons.css" />
     <Content Include="Content\nprogress.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -525,6 +527,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Backload\Web.Backload.config" />
+    <Content Include="fonts\material-icons.woff2" />
     <None Include="Scripts\jquery-1.12.4-vsdoc.js" />
     <Content Include="Scripts\gijgo\combined\gijgo.js" />
     <Content Include="Scripts\gijgo\combined\gijgo.min.js" />

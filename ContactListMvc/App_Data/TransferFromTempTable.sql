@@ -112,4 +112,21 @@ insert into persons (lastname, firstname, middlename, sex, idcity, idcategory, i
 select t.lastname, t.name, t.middlename, t.idsex, t.idcity, t.idcategory, t.isvalid, t.birthday
 from templist t;
 
+update templist
+set idperson = (select p.id
+	from persons p 
+	join cities c on c.id = p.idcity
+	join categories ct on ct.id = p.idcategory
+	where p.lastname = templist.lastname 
+	and p.firstname = templist.name 
+	and p.middlename = templist.middlename
+	and c.id = templist.idcity
+	and ct.id = templist.idcategory
+	and p.birthday = templist.birthday
+);
+
+insert into personattributes (idperson, idattribute, val)
+select p.id, 1, t.phone from persons p
+join templist t on t.idperson = p.id;
+
 insert into lists ([file], comment) values (@file, @comment);

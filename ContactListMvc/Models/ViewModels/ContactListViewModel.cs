@@ -7,6 +7,13 @@ namespace ContactListMvc.Models.ViewModels
 {
     public class ContactListViewModel
     {
-        public string XlsUrl { set; get; }
+        public List<PersonViewModel> records { set; get; }
+    
+        public int total { set; get; }
+
+        public ContactListViewModel()
+        {
+            records = new List<PersonViewModel>();
+        }
     }
 }

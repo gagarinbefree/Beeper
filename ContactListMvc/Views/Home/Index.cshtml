@@ -1,54 +1,100 @@
-﻿@model ContactListMvc.Models.ViewModels.ContactListViewModel
-
-@Html.HiddenFor(m => m.XlsUrl)
-
-@Html.Partial("_XlsUpload")
+﻿@Html.Partial("_XlsUpload")
 
 @*--gijgo--*@
-<div class="gj-margin-top-10">
-    <div class="gj-float-left">
-        <form class="display-inline">
-            <input id="txtLastName" type="text" placeholder="Last name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
-            <input id="txtFirstName" type="text" placeholder="Name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
-            <input id="txtMiddleName" type="text" placeholder="Middle name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
-            <button id="btnSearch" type="button" class="gj-button-md">Search</button>
-            <button id="btnClear" type="button" class="gj-button-md">Clear</button>
-        </form>
-    </div>    
-</div>
 
-<div class="gj-clear-both"></div>
-<div class="gj-margin-top-10">
-    <table id="grid"></table>
-</div>
-@*--gijgo--*@
 
-@section Scripts {
-    <script type="text/javascript">
-        var grid;
-        var loader;
+<form class="form-inline">
+    <div class="form-group">
+        <label class="sr-only" for="txtLastName">Фамилия</label>
+        <input id="txtLastName" type="text" placeholder="Фамилия" class="form-control" />
+    </div>
 
-        $(document).ready(function () {
-            loader = new xlsuploader();
+    <div class="form-group">
+        <label class="sr-only" for="txtFirstName">Телефон</label>
+        <input id="txtPhone" type="text" placeholder="Телефон" class="form-control" />
+    </div>
 
-            grid = $('#grid').grid({
-                primaryKey: 'id',
-                dataSource: '/Home/GetPersons',
-                columns: [
-                    { field: 'lastName', title: "Фамилия", sortable: true },
-                    { field: 'firstName', title: "Имя", sortable: true },
-                    { field: 'middleName', title: "Отчество", sortable: true },
-                ],
-                pager: { limit: 5 }
-            });
-            $('#btnSearch').on('click', function () {
-                grid.reload({ name: $('#txtName').val(), placeOfBirth: $('#txtPlaceOfBirth').val() });
-            });
-            $('#btnClear').on('click', function () {
-                $('#txtName').val('');
-                $('#txtPlaceOfBirth').val('');
-                grid.reload({ name: '', placeOfBirth: '' });
-            });
-        });
-    </script>
-}
+    <div class="form-group">
+        <label class="sr-only" for="txtCity">Город</label>
+        <input id="txtCity" type="text" placeholder="Город" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label class="sr-only" for="txtCategory">Категория</label>
+        <input id="txtCategory" type="text" placeholder="Категория" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label class="sr-only" for="txtCategory">Валидный</label>
+        <input id="txtIsvalid" type="text" placeholder="Валидный" class="form-control" />
+    </div>
+        
+    <button id="btnSearch" type="button" class="gj-button-md">Фильтр</button>
+    <button id="btnClear" type="button" class="gj-button-md">Сброс</button>    
+</form>
+
+        @*<div class="gj-margin-top-10">
+            <div class="gj-float-left">
+                <form class="form-inline">
+                    <input id="txtLastName" type="text" placeholder="Last name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
+                    <input id="txtFirstName" type="text" placeholder="Name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
+                    <input id="txtMiddleName" type="text" placeholder="Middle name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
+                    <button id="btnSearch" type="button" class="gj-button-md">Search</button>
+                    <button id="btnClear" type="button" class="gj-button-md">Clear</button>
+                </form>
+            </div>
+        </div>*@
+
+        <div class="gj-clear-both"></div>
+        <div class="gj-margin-top-10">
+            <table id="grid"></table>
+        </div>
+        @*--gijgo--*@
+
+
+@*id = c.id,
+    firstName = c.firstname,
+    lastName = c.lastname,
+    middleName = c.middlename,
+    birthday = c.birthday != null ? c.birthday.ToString() : "",
+    city = c.cities.name,
+    sex = c.sex != null ? (c.sex == 1 ? "М" : "Ж") : ""*@
+
+
+        @section Scripts {
+            <script type="text/javascript">
+                var grid;
+                var loader;
+
+                $(document).ready(function () {                    
+                    grid = $('#grid').grid({
+                        primaryKey: 'id',
+                        dataSource: '/Home/GetPersons',
+                        columns: [
+                            { field: 'id', title: "ID", sortable: true },
+                            { field: 'lastname', title: "Фамилия", sortable: true },
+                            { field: 'firstname', title: "Имя", sortable: true },
+                            { field: 'middlename', title: "Отчество", sortable: true },
+                            { field: 'phone', title: "Телефон", sortable: true },
+                            { field: 'birthday', title: "Дата рождения", sortable: true },
+                            { field: 'city', title: "Город", sortable: true },
+                            { field: 'sex', title: "Пол", sortable: true },
+                            { field: 'isvalid', title: "Валидный", sortable: true }
+                        ],
+                        pager: { limit: 10 },
+                        uiLibrary: 'bootstrap'
+                    });
+                    $('#btnSearch').on('click', function () {
+                        grid.reload({ lastname: $('#txtLastName').val(), firstname: $('#txtFirstName').val() });
+                    });
+                    //$('#btnClear').on('click', function () {
+                    //    $('#txtName').val('');
+                    //    $('#txtPlaceOfBirth').val('');
+                    //    grid.reload({ name: '', placeOfBirth: '' });
+                    //});
+
+                    loader = new xlsuploader(grid);
+                });
+            </script>
+        }
+

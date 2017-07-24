@@ -1,5 +1,6 @@
 ﻿var xlsuploader = (function () {
-    function xlsuploader() {                
+    function xlsuploader(grid) {
+        this.grid = grid;
         this.elBrowseButton = $("#browseBtnUpload");
         this.elInput = $("#inputUpload");
         this.elButtonUpload = $("#buttonUpload");        
@@ -15,7 +16,7 @@
         this.url = "/FileHandler/Upload"
         this.urltodb = "/FileHandler/LoadToDb"
 
-        this.init();
+        this.init();        
     }
 
     xlsuploader.prototype.init = function () {
@@ -101,21 +102,24 @@
                 + "?filename=" + filename
                 + "&origfilename=" + encodeURI(origfilename)
                 + "&comment="
-                + self.elInputComment.val(), function () { self.doneLoadToDB() });
+                + self.elInputComment.val());//, function () { self.doneLoadToDB() });
         }
         else
             this.elImageUrl.val("");
     }
     
-    xlsuploader.prototype.doneLoadToDB = function () {
-        self = this;
+    //xlsuploader.prototype.doneLoadToDB = function () {
+    //    self = this;
 
-        NProgress.done(true);
+    //    NProgress.done(true);
 
-        setTimeout(function () {
-            self.elModalForm.modal("hide");
-        }, 250);
-    }
+    //    setTimeout(function () {
+    //        self.elModalForm.modal("hide");
+    //        if (typeof (self.grid) !== "undefined") {
+    //            grid.reload();
+    //        }
+    //    }, 250);
+    //}
 
     return xlsuploader;
 })();

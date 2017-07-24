@@ -19,8 +19,9 @@ namespace ContactListMvc
                 "~/Scripts/gijgo/combined/gijgo.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/material-icons.css",
                 "~/Content/gijgo/combined/gijgo.css", 
-                "~/Content/bootstrap-theme.css",
+                "~/Content/bootstrap.css",
                 "~/Content/site.css",
                 "~/Content/nprogress.css"));            
         }

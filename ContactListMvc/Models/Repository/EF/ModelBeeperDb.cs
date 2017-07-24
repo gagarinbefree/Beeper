@@ -4,6 +4,7 @@ namespace ContactListMvc.Models.Repository.EF
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using ContactListMvc.Models.Repository.EF.DTO;
 
     public partial class BeeperDbContext : DbContext
     {

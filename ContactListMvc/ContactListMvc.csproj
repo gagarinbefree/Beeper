@@ -181,19 +181,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ILoader.cs" />
-    <Compile Include="Models\Repository\DataSetBeeper.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetBeeper.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Repository\EF\attributes.cs" />
-    <Compile Include="Models\Repository\EF\categories.cs" />
-    <Compile Include="Models\Repository\EF\cities.cs" />
+    <Compile Include="Models\Repository\EF\DTO\attributes.cs" />
+    <Compile Include="Models\Repository\EF\DTO\categories.cs" />
+    <Compile Include="Models\Repository\EF\DTO\cities.cs" />
     <Compile Include="Models\Repository\EF\ModelBeeperDb.cs" />
-    <Compile Include="Models\Repository\EF\personattributes.cs" />
-    <Compile Include="Models\Repository\EF\persons.cs" />
+    <Compile Include="Models\Repository\EF\DTO\personattributes.cs" />
+    <Compile Include="Models\Repository\EF\DTO\persons.cs" />
     <Compile Include="Models\Repository\EF\RepEf.cs" />
-    <Compile Include="Models\Repository\EF\Repository.cs" />
+    <Compile Include="Models\Repository\EF\DTO\Repository.cs" />
     <Compile Include="Models\Repository\EPPlus\RepExcel.cs" />
     <Compile Include="Models\Repository\EPPlus\Repository.cs" />
     <Compile Include="Models\Repository\IRepEf.cs" />
@@ -530,17 +525,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Backload\Web.Backload.config" />
-    <Content Include="Models\Repository\DataSetBeeper.xsc">
-      <DependentUpon>DataSetBeeper.xsd</DependentUpon>
-    </Content>
-    <None Include="Models\Repository\DataSetBeeper.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetBeeper.Designer.cs</LastGenOutput>
-    </None>
-    <Content Include="Models\Repository\DataSetBeeper.xss">
-      <DependentUpon>DataSetBeeper.xsd</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-1.12.4-vsdoc.js" />
     <Content Include="Scripts\gijgo\combined\gijgo.js" />
     <Content Include="Scripts\gijgo\combined\gijgo.min.js" />

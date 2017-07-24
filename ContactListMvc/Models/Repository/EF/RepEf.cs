@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ContactListMvc.Models.Repository;
 
 namespace ContactListMvc.Models.Repository.EF
 {
     public class RepEf : Repository, IRepEf
     {
-        public JsonResult GetPersons(int? page, int? limit, string sortBy, string direction)
+        public List<persons> GetPersons(int? page, int? limit, string sortBy, string direction)
         {
             List<persons> records;
             int total;
@@ -75,7 +76,7 @@ namespace ContactListMvc.Models.Repository.EF
                     records = query.ToList();
                 }
 
-                return Json(records);
+                return records;
             }
         }
     }

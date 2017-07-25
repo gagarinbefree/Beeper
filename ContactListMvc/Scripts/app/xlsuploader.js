@@ -1,20 +1,19 @@
 ﻿var xlsuploader = (function () {
-    function xlsuploader(grid) {
-        this.grid = grid;
-        this.elBrowseButton = $("#browseBtnUpload");
-        this.elInput = $("#inputUpload");
-        this.elButtonUpload = $("#buttonUpload");        
-        this.elFileName = $("#fileNameUpload");
-        this.elModalForm = $("#modalForm");
-        this.elInputComment = $("#inputComment");
-        this.elImageUrl = $("#XlsUrl");
+    function xlsuploader() {
+        this.elBrowseButton = $('#browseBtnUpload');
+        this.elInput = $('#inputUpload');
+        this.elButtonUpload = $('#buttonUpload');        
+        this.elFileName = $('#fileNameUpload');
+        this.elModalForm = $('#modalForm');
+        this.elInputComment = $('#inputComment');
+        this.elImageUrl = $('#XlsUrl');
         
         this.reader = new FileReader();
         this.file = null;
         this.dataSubmit = null;
 
-        this.url = "/FileHandler/Upload"
-        this.urltodb = "/FileHandler/LoadToDb"
+        this.url = '/FileHandler/Upload';
+        this.urltodb = '/FileHandler/LoadToDb';
 
         this.init();        
     }
@@ -22,10 +21,14 @@
     xlsuploader.prototype.init = function () {
         var self = this;
 
-        this.elButtonUpload.prop("disabled", true);        
+        $.ajaxSetup({
+            error: function (xhr, status, error) { self.error(xhr, status, error) }
+        });
+
+        this.elButtonUpload.prop('disabled', true);        
 
         NProgress.configure({
-            parent: "#progressUpload"
+            parent: '#progressUpload'
             , showSpinner: false
         });
 
@@ -65,7 +68,7 @@
     }
 
     xlsuploader.prototype.onLoad = function (e) {        
-        this.elButtonUpload.prop("disabled", false);        
+        this.elButtonUpload.prop('disabled', false);        
     }
 
     xlsuploader.prototype.startUpload = function () {
@@ -95,31 +98,40 @@
             //    dataType: 'json',
             //    contentType: 'application/json; charset=utf-8',
             //    success: function () { self.doneLoadToDB() },
-            //    error: function (error) { }
+            //    error: function (e, status) { self.error(e, status) }
             //});
 
             $.get(this.urltodb
-                + "?filename=" + filename
-                + "&origfilename=" + encodeURI(origfilename)
-                + "&comment="
-                + self.elInputComment.val());//, function () { self.doneLoadToDB() });
+                + '?filename=' + filename
+                + '&origfilename=' + encodeURI(origfilename)
+                + '&comment='
+                + self.elInputComment.val(), function () { self.doneLoadToDB() }
+            );
         }
         else
             this.elImageUrl.val("");
     }
     
-    //xlsuploader.prototype.doneLoadToDB = function () {
-    //    self = this;
+    xlsuploader.prototype.doneLoadToDB = function () {
+        self = this;
 
-    //    NProgress.done(true);
+        NProgress.done(true);
 
-    //    setTimeout(function () {
-    //        self.elModalForm.modal("hide");
-    //        if (typeof (self.grid) !== "undefined") {
-    //            grid.reload();
-    //        }
-    //    }, 250);
-    //}
+        setTimeout(function () {
+            self.elModalForm.modal('hide');
+            location.reload();
+        }, 250);
+    }
+
+    xlsuploader.prototype.error = function (xhr, status, error) {
+        self = this;
+
+        NProgress.done(true);
+
+        setTimeout(function () {
+            self.elModalForm.modal('hide');
+        }, 250);
+    }
 
     return xlsuploader;
 })();

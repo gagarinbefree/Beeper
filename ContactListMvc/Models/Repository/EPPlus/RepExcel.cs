@@ -13,6 +13,8 @@ namespace ContactListMvc.Models.Repository.EPPlus
     {        
         public System.Data.DataTable LoadFromFile(string filename)
         {
+            MvcApplication.log.Info("Начало загрузки файла контактов");
+
             DataTable res = new DataTable();
 
             FileInfo file = new FileInfo(String.Format("{0}{1}", ServerPath, filename));
@@ -26,20 +28,31 @@ namespace ContactListMvc.Models.Repository.EPPlus
 
             for (var rowNumber = 2; rowNumber <= workSheet.Dimension.End.Row; rowNumber++)
             {
-                var row = workSheet.Cells[rowNumber, 1, rowNumber, workSheet.Dimension.End.Column];
-                var newRow = res.NewRow();
-
-                var cells = row.Value as object[,];
-                if (cells == null)
-                    continue;
-
-                for (var cellnumber = 0; cellnumber < cells.GetLength(1); cellnumber ++)
+                try
                 {
-                    newRow[cellnumber] = _getCellValue(cellnumber, cells[0, cellnumber]);
-                }
+                    var row = workSheet.Cells[rowNumber, 1, rowNumber, workSheet.Dimension.End.Column];
+                    var newRow = res.NewRow();
 
-                res.Rows.Add(newRow);
+                    var cells = row.Value as object[,];
+                    if (cells == null)
+                        continue;
+
+                    for (var cellnumber = 0; cellnumber < cells.GetLength(1); cellnumber++)
+                    {
+                        newRow[cellnumber] = _getCellValue(cellnumber, cells[0, cellnumber]);
+                    }
+
+                    res.Rows.Add(newRow);
+                }
+                catch(Exception ex)
+                {
+                    MvcApplication.log.Info(ex, String.Format("Не удалось загрузить строку файла №{0}", rowNumber));
+
+                    throw;
+                }
             }
+
+            MvcApplication.log.Info("Файл контактов загружен");
 
             return res;
         }

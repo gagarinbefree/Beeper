@@ -1,4 +1,4 @@
-﻿create table dbo.templist (
+﻿create table #templist (
 	phone nvarchar(max) NULL
 	, lastname nvarchar(max) NULL
 	, name nvarchar(max) NULL

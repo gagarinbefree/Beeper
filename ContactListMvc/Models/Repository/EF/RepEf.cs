@@ -89,7 +89,10 @@ namespace ContactListMvc.Models.Repository.EF
                 }
 
                 if (!String.IsNullOrWhiteSpace(isvalid))
-                    query = query.Where(f => f.isvalid.Contains(isvalid));
+                {
+                    string[] cities = city.Split(',');
+                    query = query.Where(x => isvalid.Contains(x.isvalid));
+                }
 
                 if (!string.IsNullOrEmpty(sortBy) && !string.IsNullOrEmpty(direction))
                 {

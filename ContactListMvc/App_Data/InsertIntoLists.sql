@@ -1,1 +1,0 @@
-﻿insert into lists ([file], comment) values (@file, @comment)

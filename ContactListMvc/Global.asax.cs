@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,9 @@ namespace ContactListMvc
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        public static Logger log = new NLog.LogFactory().GetCurrentClassLogger();
+
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

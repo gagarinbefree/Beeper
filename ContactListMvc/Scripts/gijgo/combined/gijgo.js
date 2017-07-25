@@ -1919,25 +1919,25 @@ if (typeof (gj.grid) === 'undefined') {
 }
 
 gj.grid.messages['en-us'] = {
-    First: 'First',
-    Previous: 'Previous',
-    Next: 'Next',
-    Last: 'Last',
-    Page: 'Page',
-    FirstPageTooltip: 'First Page',
-    PreviousPageTooltip: 'Previous Page',
-    NextPageTooltip: 'Next Page',
-    LastPageTooltip: 'Last Page',
-    Refresh: 'Refresh',
-    Of: 'of',
-    DisplayingRecords: 'Displaying records',
-    RowsPerPage: 'Rows per page:',
-    Edit: 'Edit',
-    Delete: 'Delete',
-    Update: 'Update',
-    Cancel: 'Cancel',
-    NoRecordsFound: 'No records found.',
-    Loading: 'Loading...'
+    First: 'Первая',
+    Previous: 'Предидущая',
+    Next: 'Следущая',
+    Last: 'Последняя',
+    Page: 'Страница',
+    FirstPageTooltip: 'Первая страница',
+    PreviousPageTooltip: 'Предидущая страница',
+    NextPageTooltip: 'Следущая стараница',
+    LastPageTooltip: 'Последняя страница',
+    Refresh: 'Обновить',
+    Of: '',
+    DisplayingRecords: 'Записи',
+    RowsPerPage: 'Строк на странице:',
+    Edit: 'Редактировать',
+    Delete: 'Удалить',
+    Update: 'Обновить',
+    Cancel: 'Отмена',
+    NoRecordsFound: 'Нет данных.',
+    Loading: 'Загрузка...'
 };
 /* global window alert jQuery gj */
 /**

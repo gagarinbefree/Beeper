@@ -88,6 +88,10 @@
       <HintPath>..\packages\Ninject.MVC4.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -208,9 +212,7 @@
   <ItemGroup>
     <Content Include="App_Data\CreateBD.sql" />
     <Content Include="App_Data\CreateTempTable.sql" />
-    <Content Include="App_Data\InsertIntoLists.sql" />
     <Content Include="App_Data\TransferFromTempTable.sql" />
-    <Content Include="App_Data\DropTempTable.sql" />
     <Content Include="Backload\Client\blueimp\blob\js\canvas-to-blob.js" />
     <Content Include="Backload\Client\blueimp\blob\js\canvas-to-blob.min.js" />
     <Content Include="Backload\Client\blueimp\bundles\css\bundles.txt" />
@@ -534,6 +536,12 @@
     </None>
     <None Include="Backload\Web.Backload.config" />
     <Content Include="fonts\material-icons.woff2" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-1.12.4-vsdoc.js" />
     <Content Include="Scripts\gijgo\combined\gijgo.js" />
     <Content Include="Scripts\gijgo\combined\gijgo.min.js" />

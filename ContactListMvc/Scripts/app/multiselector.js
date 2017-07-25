@@ -1,7 +1,8 @@
 ﻿var multiselector = (function () {
-    function multiselector(element, nonSelectedText, enableFiltering, url) {
-        this.nonSelectedText = nonSelectedText;
+    function multiselector(element, container, nonSelectedText, enableFiltering, url) {        
         this.element = element;
+        this.container = container;
+        this.nonSelectedText = nonSelectedText;
         this.enableFiltering = enableFiltering;
         this.url = url;
 
@@ -9,7 +10,7 @@
     }
 
     multiselector.prototype.init = function () {
-        var self = this;
+        var self = this;        
 
         if (typeof (this.url) !== 'undefined') {
             $.get(this.url, function (data) {
@@ -35,8 +36,11 @@
             enableFiltering: this.enableFiltering,
             nonSelectedText: this.nonSelectedText,
             nSelectedText: "выбрано",
-            enableCaseInsensitiveFiltering: true
+            enableCaseInsensitiveFiltering: true,
+            allSelectedText: this.nonSelectedText
         });
+
+        this.container.show();
     }
 
 

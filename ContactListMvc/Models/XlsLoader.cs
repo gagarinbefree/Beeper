@@ -23,7 +23,7 @@ namespace ContactListMvc.Models
             DataTable dt = _excel.LoadFromFile(filename);
 
             // на время разработки, потом убрать
-            _sqlServer.DropTempTable();
+            //_sqlServer.DropTempTable();
 
             _sqlServer.DataUploadToDB(dt, origfilename, comment);
 

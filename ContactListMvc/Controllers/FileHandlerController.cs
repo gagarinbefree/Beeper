@@ -29,7 +29,7 @@ namespace ContactListMvc.Controllers
         {
             try
             {
-                IFileHandler handler = Backload.FileHandler.Create();                
+                IFileHandler handler = Backload.FileHandler.Create();
 
                 using (var provider = new BackloadDataProvider(this.Request))
                 {
@@ -45,8 +45,10 @@ namespace ContactListMvc.Controllers
             }
             catch(Exception ex)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.Message);
+                MvcApplication.log.Error(ex, "Не удалось загрузить файл контактов");
             }
+
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
         }
         
         [HttpGet]
@@ -54,11 +56,16 @@ namespace ContactListMvc.Controllers
         {
             try
             {
-                _loader.LoadToDb(filename, origfilename, comment);                
-            }
-            catch (Exception ex) { }
+                _loader.LoadToDb(filename, origfilename, comment);
 
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch (Exception ex) 
+            {
+                MvcApplication.log.Error(ex, "Не удалось сохранить в БД файл контактов");
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
         }
     }
 }

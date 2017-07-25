@@ -11,6 +11,18 @@ namespace ContactListMvc.Models.Repository
 {
     public interface IRepEf
     {
-        ContactListViewModel GetPersons(int? page, int? limit, string sortBy, string direction);
+        ContactListViewModel GetPersons(int? page
+            , int? limit
+            , string sortBy
+            , string direction
+            , string lastname
+            , string phone
+            , string city
+            , string category
+            , string isvalid);
+
+        List<CitiyViewModel> GetCities();
+
+        List<CategoryVeiwModel> GetCategories();
     }
 }

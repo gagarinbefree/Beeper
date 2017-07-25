@@ -17,7 +17,7 @@ where category is not null
 and not exists(select 1 
 	from categories c 
 	where c.name = t.category
-);
+)
 
 update templist 
 set idcategory = (select c.id 
@@ -25,7 +25,6 @@ set idcategory = (select c.id
 	where c.name = templist.category
 )
 where idcategory is null;
-
 
 update templist set idcity = (select c.id 
 	from cities c 

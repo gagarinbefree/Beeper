@@ -58,7 +58,7 @@ namespace ContactListMvc.Controllers
             }
             catch (Exception ex) { }
 
-            return RedirectToAction("Index", "Home");
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

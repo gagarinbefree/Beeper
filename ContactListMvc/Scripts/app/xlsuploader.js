@@ -20,7 +20,7 @@
     }
 
     xlsuploader.prototype.init = function () {
-        self = this;
+        var self = this;
 
         this.elButtonUpload.prop("disabled", true);        
 
@@ -77,9 +77,9 @@
     }
 
     xlsuploader.prototype.doneUpload = function (e, data) {
-        self = this;
+        var self = this;
 
-        if (data.result.files.length > 0) {
+        if (typeof (data) !== 'undefined' && data.result.files.length > 0) {
             this.elImageUrl.val(data.result.files[0].url);
             
             origfilename = data.originalFiles[0].name;

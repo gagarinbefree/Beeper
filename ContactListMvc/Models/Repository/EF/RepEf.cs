@@ -12,7 +12,43 @@ namespace ContactListMvc.Models.Repository.EF
 {
     public class RepEf : Repository, IRepEf
     {
-        public ContactListViewModel GetPersons(int? page, int? limit, string sortBy, string direction)
+        public List<CategoryVeiwModel> GetCategories()
+        {
+            using (BeeperDbContext context = new BeeperDbContext())
+            {
+                var query = context.categories.Select(c => new CategoryVeiwModel
+                {
+                    id = c.id,
+                    name = c.name
+                });
+
+                return query.ToList();
+            }
+        }
+
+        public List<CitiyViewModel> GetCities()
+        {
+            using (BeeperDbContext context = new BeeperDbContext())
+            {
+                var query = context.cities.Select(c => new CitiyViewModel
+                {
+                    id = c.id,
+                    name = c.name
+                });
+
+                return query.ToList();
+            }
+        }
+
+        public ContactListViewModel GetPersons(int? page
+            , int? limit
+            , string sortBy
+            , string direction
+            , string lastname
+            , string phone
+            , string city
+            , string category
+            , string isvalid)
         {
             List<PersonViewModel> records;
             int total;
@@ -34,15 +70,26 @@ namespace ContactListMvc.Models.Repository.EF
                     isvalid = c.isvalid == 1 ? "Да" : "Нет"
                 });
 
-                //if (!string.IsNullOrWhiteSpace(name))
-                //{
-                //    query = query.Where(q => q.Name.Contains(name));
-                //}
+                if (!String.IsNullOrWhiteSpace(lastname))
+                    query = query.Where(f => f.lastname.Contains(lastname));
 
-                //if (!string.IsNullOrWhiteSpace(placeOfBirth))
-                //{
-                //    query = query.Where(q => q.PlaceOfBirth.Contains(placeOfBirth));
-                //}
+                if (!String.IsNullOrWhiteSpace(phone))
+                    query = query.Where(f => f.phone.Contains(phone));
+
+                if (!String.IsNullOrWhiteSpace(city))
+                {
+                    string[] cities = city.Split(',');
+                    query = query.Where(x => city.Contains(x.city));                    
+                }
+
+                if (!String.IsNullOrWhiteSpace(category))
+                {
+                    string[] categories = category.Split(',');
+                    query = query.Where(x => categories.Contains(x.category));
+                }
+
+                if (!String.IsNullOrWhiteSpace(isvalid))
+                    query = query.Where(f => f.isvalid.Contains(isvalid));
 
                 if (!string.IsNullOrEmpty(sortBy) && !string.IsNullOrEmpty(direction))
                 {
@@ -70,6 +117,9 @@ namespace ContactListMvc.Models.Repository.EF
                                 break;
                             case "sex":
                                 query = query.OrderBy(q => q.sex);
+                                break;
+                            case "category":
+                                query = query.OrderBy(q => q.category);
                                 break;
                             case "phone":
                                 query = query.OrderBy(q => q.phone);
@@ -103,6 +153,9 @@ namespace ContactListMvc.Models.Repository.EF
                                 break;
                             case "sex":
                                 query = query.OrderByDescending(q => q.sex);
+                                break;
+                            case "category":
+                                query = query.OrderByDescending(q => q.category);
                                 break;
                             case "phone":
                                 query = query.OrderByDescending(q => q.phone);

@@ -1,9 +1,6 @@
 ﻿@Html.Partial("_XlsUpload")
 
-@*--gijgo--*@
-
-
-<form class="form-inline">
+<div class="form-inline">
     <div class="form-group">
         <label class="sr-only" for="txtLastName">Фамилия</label>
         <input id="txtLastName" type="text" placeholder="Фамилия" class="form-control" />
@@ -16,85 +13,39 @@
 
     <div class="form-group">
         <label class="sr-only" for="txtCity">Город</label>
-        <input id="txtCity" type="text" placeholder="Город" class="form-control" />
+        <select id="txtCity" multiple="multiple"></select>
     </div>
 
     <div class="form-group">
         <label class="sr-only" for="txtCategory">Категория</label>
-        <input id="txtCategory" type="text" placeholder="Категория" class="form-control" />
+        <select id="txtCategory" multiple="multiple"></select>
     </div>
 
     <div class="form-group">
         <label class="sr-only" for="txtCategory">Валидный</label>
-        <input id="txtIsvalid" type="text" placeholder="Валидный" class="form-control" />
+        <select id="txtIsvalid" multiple="multiple">
+            <option value="Да">Да</option>
+            <option value="Нет">Нет</option>
+        </select>
     </div>
-        
-    <button id="btnSearch" type="button" class="gj-button-md">Фильтр</button>
-    <button id="btnClear" type="button" class="gj-button-md">Сброс</button>    
-</form>
+</div>
 
-        @*<div class="gj-margin-top-10">
-            <div class="gj-float-left">
-                <form class="form-inline">
-                    <input id="txtLastName" type="text" placeholder="Last name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
-                    <input id="txtFirstName" type="text" placeholder="Name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
-                    <input id="txtMiddleName" type="text" placeholder="Middle name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
-                    <button id="btnSearch" type="button" class="gj-button-md">Search</button>
-                    <button id="btnClear" type="button" class="gj-button-md">Clear</button>
-                </form>
-            </div>
-        </div>*@
+<div class="form-inline margin-top">
+    <button id="btnSearch" type="button" class="btn btn-default">Фильтр</button>
+    <button id="btnClear" type="button" class="btn btn-default">Сброс</button>
+</div>
 
-        <div class="gj-clear-both"></div>
-        <div class="gj-margin-top-10">
-            <table id="grid"></table>
-        </div>
-        @*--gijgo--*@
+<div class="gj-clear-both margin-top-40">
+    <div class="gj-margin-top-10">
+        <table id="grid"></table>
+    </div>
+</div>
 
-
-@*id = c.id,
-    firstName = c.firstname,
-    lastName = c.lastname,
-    middleName = c.middlename,
-    birthday = c.birthday != null ? c.birthday.ToString() : "",
-    city = c.cities.name,
-    sex = c.sex != null ? (c.sex == 1 ? "М" : "Ж") : ""*@
-
-
-        @section Scripts {
-            <script type="text/javascript">
-                var grid;
-                var loader;
-
-                $(document).ready(function () {                    
-                    grid = $('#grid').grid({
-                        primaryKey: 'id',
-                        dataSource: '/Home/GetPersons',
-                        columns: [
-                            { field: 'id', title: "ID", sortable: true },
-                            { field: 'lastname', title: "Фамилия", sortable: true },
-                            { field: 'firstname', title: "Имя", sortable: true },
-                            { field: 'middlename', title: "Отчество", sortable: true },
-                            { field: 'phone', title: "Телефон", sortable: true },
-                            { field: 'birthday', title: "Дата рождения", sortable: true },
-                            { field: 'city', title: "Город", sortable: true },
-                            { field: 'sex', title: "Пол", sortable: true },
-                            { field: 'isvalid', title: "Валидный", sortable: true }
-                        ],
-                        pager: { limit: 10 },
-                        uiLibrary: 'bootstrap'
-                    });
-                    $('#btnSearch').on('click', function () {
-                        grid.reload({ lastname: $('#txtLastName').val(), firstname: $('#txtFirstName').val() });
-                    });
-                    //$('#btnClear').on('click', function () {
-                    //    $('#txtName').val('');
-                    //    $('#txtPlaceOfBirth').val('');
-                    //    grid.reload({ name: '', placeOfBirth: '' });
-                    //});
-
-                    loader = new xlsuploader(grid);
-                });
-            </script>
-        }
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var application = new app();
+        });
+    </script>
+}
 

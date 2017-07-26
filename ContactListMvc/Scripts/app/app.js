@@ -14,16 +14,16 @@
             primaryKey: 'id',
             dataSource: '/Home/GetPersons',
             columns: [
-                { field: 'id', title: 'ID', sortable: true },
+                { field: 'id', title: 'ID', sortable: true, width: 70 },
                 { field: 'lastname', title: 'Фамилия', sortable: true },
                 { field: 'firstname', title: 'Имя', sortable: true },
                 { field: 'middlename', title: 'Отчество', sortable: true },
-                { field: 'phone', title: 'Телефон', sortable: true },
+                { field: 'phone', title: 'Телефон', sortable: true, width: 100 },
                 { field: 'birthday', title: 'Дата рождения', sortable: true },
                 { field: 'city', title: 'Город', sortable: true },
-                { field: 'sex', title: 'Пол', sortable: true },
+                { field: 'sex', title: 'Пол', sortable: true, width: 50 },
                 { field: 'category', title: 'Категория', sortable: true },
-                { field: 'isvalid', title: 'Валидный', sortable: true }
+                { field: 'isvalid', title: 'Валидный', sortable: true, width: 80 }
             ],
             pager: { limit: 10 },
             uiLibrary: 'bootstrap'

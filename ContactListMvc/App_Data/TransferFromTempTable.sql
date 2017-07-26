@@ -111,7 +111,8 @@ end;
 
 insert into persons (lastname, firstname, middlename, sex, idcity, idcategory, isvalid, birthday)
 select t.lastname, t.name, t.middlename, t.idsex, t.idcity, t.idcategory, t.isvalid, t.birthday
-from #templist t;
+from #templist t
+order by t.lastname
 
 update #templist
 set idperson = (select p.id

@@ -135,6 +135,9 @@ App_Data/*.ldf
 # Backload files
 Files/*.*
 
+#XLS
+*.xlsx
+
 #LightSwitch generated files
 GeneratedArtifacts/
 _Pvt_Extensions/

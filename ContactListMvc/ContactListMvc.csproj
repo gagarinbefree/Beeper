@@ -166,6 +166,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Files\" />
     <Folder Include="Views\FileHandler\" />
     <Folder Include="Views\Upload\" />
   </ItemGroup>

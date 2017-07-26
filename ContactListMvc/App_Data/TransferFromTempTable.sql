@@ -1,4 +1,6 @@
-﻿delete from #templist
+﻿begin transaction;
+
+delete from #templist
 where len(phone) < 10
 
 insert into cities (name)
@@ -129,3 +131,5 @@ select p.id, 1, t.phone from persons p
 join #templist t on t.idperson = p.id;
 
 insert into lists ([file], comment) values (@file, @comment);
+
+commit;

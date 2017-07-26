@@ -210,8 +210,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\CreateBD.sql" />
+    <Content Include="App_Data\CreateDB.sql" />
     <Content Include="App_Data\CreateTempTable.sql" />
+    <Content Include="App_Data\ER-диаграмма таблиц БД.png" />
     <Content Include="App_Data\TransferFromTempTable.sql" />
     <Content Include="Backload\Client\blueimp\blob\js\canvas-to-blob.js" />
     <Content Include="Backload\Client\blueimp\blob\js\canvas-to-blob.min.js" />

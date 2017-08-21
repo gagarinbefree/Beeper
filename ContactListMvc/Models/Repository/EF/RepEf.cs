@@ -91,7 +91,7 @@ namespace ContactListMvc.Models.Repository.EF
                 if (!String.IsNullOrWhiteSpace(isvalid))
                 {
                     string[] cities = city.Split(',');
-                    query = query.Where(x => isvalid.Contains(x.isvalid));
+                    query = query.Where(x => isvalid.Contains(x.isvalid == "Да" ? "1" : "0"));
                 }
 
                 if (!string.IsNullOrEmpty(sortBy) && !string.IsNullOrEmpty(direction))

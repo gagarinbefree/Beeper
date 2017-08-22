@@ -50,20 +50,6 @@ create table persons (id int identity(1,1) primary key
 		on update cascade    
 );
 
-create nonclustered index [nonclusteredindex-lastname-firstname-middlename] on [dbo].[persons]
-(
-	lastname asc,
-	firstname asc,
-	middlename asc
-) with (pad_index = off
-	, statistics_norecompute = off
-	, sort_in_tempdb = off
-	, drop_existing = off
-	, online = off
-	, allow_row_locks = on
-	, allow_page_locks = on
-) on [primary]
-
 create table personattributes (id int identity(1,1) primary key
 	, idperson int not null
 	, idattribute int not null

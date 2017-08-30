@@ -9,7 +9,7 @@ namespace ContactListMvc.Models.Repository.SqlServer
 {
     public class RepSqlServer : Repository, IRepSqlServer
     {
-        private string _tablename = "#templist";
+        private string _tablename = "templist";
 
         public void DataUploadToDB(DataTable data, string file, string comment)
         {            

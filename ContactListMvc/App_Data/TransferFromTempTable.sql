@@ -121,7 +121,7 @@ begin
 	where t.id between (@ii) and (@ii + @step);
 
 	set @ii = @ii + @step;
-end
+end;
 
 update #templist
 set idperson = (select p.id

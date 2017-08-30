@@ -1,4 +1,4 @@
-﻿create table #templist (
+﻿create table templist (
 	phone nvarchar(max) NULL
 	, lastname nvarchar(max) NULL
 	, [name] nvarchar(max) NULL
@@ -10,7 +10,7 @@
 	, isvalid int NULL
 	, idcategory int NULL
 	, idcity int NULL
-	, idsex int NULL	
-	, id int identity(1,1) primary key
+	, idsex int NULL		
 	, idperson int
+	, id int identity(1,1) primary key
 ) on [primary]

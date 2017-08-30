@@ -1,5 +1,6 @@
 ﻿begin transaction;
 
+
 delete from #templist
 where len(phone) < 10
 

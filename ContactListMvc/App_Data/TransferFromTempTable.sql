@@ -1,6 +1,5 @@
 ﻿begin transaction;
 
-
 delete from #templist
 where len(phone) < 10
 
@@ -125,12 +124,12 @@ begin
 end;
 
 update #templist
-set idperson = (select p.id
+set idperson = (select top 1 p.id
 	from persons p 
 	join cities c on c.id = p.idcity
 	join categories ct on ct.id = p.idcategory
 	where p.lastname = #templist.lastname 
-	and p.firstname = #templist.name 
+	and p.firstname = #templist.[name]
 	and p.middlename = #templist.middlename
 	and c.id = #templist.idcity
 	and ct.id = #templist.idcategory

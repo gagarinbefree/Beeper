@@ -57,15 +57,13 @@ namespace ContactListMvc.Controllers
             try
             {
                 _loader.LoadToDb(filename, origfilename, comment);
-
-                return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             catch (Exception ex) 
             {
                 MvcApplication.log.Error(ex, "Не удалось сохранить в БД файл контактов");
             }
 
-            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

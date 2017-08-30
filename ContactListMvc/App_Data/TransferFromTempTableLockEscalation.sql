@@ -5,7 +5,7 @@ where len(phone) < 10
 
 insert into cities (name)
 select distinct t.city 
-from #templist t
+from ##templist t
 where  t.city is not null
 and not exists(select 1 
 	from cities s 
@@ -109,19 +109,23 @@ set idsex = case
 	else null 
 end;
 
--- insert-ы по 1000 записей
-declare @step int = 1000;
-declare @max int = (select max(id) from #templist);
-declare @ii int = (select min(id) from #templist);
-while(@ii <= @max)
-begin
-	insert into persons (lastname, firstname, middlename, sex, idcity, idcategory, isvalid, birthday)
-	select isnull(t.lastname, ''), isnull(t.name, ''), isnull(t.middlename, ''), t.idsex, t.idcity, t.idcategory, t.isvalid, t.birthday
-	from #templist t
-	where t.id between (@ii) and (@ii + @step);
+-- запрет эскалации блокировок
+declare @lock int;
+select @lock = t.lock_escalation from sys.tables t 
+where t.name = 'persons';
+alter table persons set (lock_escalation = disable);
 
-	set @ii = @ii + @step;
-end
+insert into persons (lastname, firstname, middlename, sex, idcity, idcategory, isvalid, birthday)
+select t.lastname, t.name, t.middlename, t.idsex, t.idcity, t.idcategory, t.isvalid, t.birthday
+from #templist t;
+
+-- восстановим настройку эскалации
+if (@lock = 0)
+	alter table persons set (lock_escalation = table);	
+else if (@lock = 1)
+	alter table persons set (lock_escalation = disable);
+else
+	alter table persons set (lock_escalation = auto);
 
 update #templist
 set idperson = (select p.id

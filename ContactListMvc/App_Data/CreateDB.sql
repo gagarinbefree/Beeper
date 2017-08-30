@@ -1,12 +1,12 @@
 drop table if exists lists;
-drop table if exists log;
+drop table if exists [log];
 drop table if exists personattributes;
 drop table if exists attributes;
 drop table if exists persons;
 drop table if exists cities;
 drop table if exists categories;
 
-create table log (loglevel nvarchar(50)
+create table [log] (loglevel nvarchar(50)
 	, [timestamp] nvarchar(100)
 	, [message] nvarchar(max)
 	, ex nvarchar(max)

@@ -15,8 +15,6 @@ namespace ContactListMvc.Models.Repository.EPPlus
         {
             MvcApplication.log.Info("Начало загрузки файла контактов");
 
-            DataTable res = new DataTable();
-
             FileInfo file = new FileInfo(String.Format("{0}{1}", ServerPath, filename));
             ExcelPackage excel = new ExcelPackage(file);
             ExcelWorksheet workSheet = excel.Workbook.Worksheets.First();
@@ -39,10 +37,9 @@ namespace ContactListMvc.Models.Repository.EPPlus
 
                     for (var cellnumber = 0; cellnumber < cells.GetLength(1); cellnumber++)
                     {
-                        newRow[cellnumber] = _getCellValue(cellnumber, cells[0, cellnumber]);
+                        // cell
                     }
 
-                    res.Rows.Add(newRow);
                 }
                 catch(Exception ex)
                 {
@@ -51,10 +48,6 @@ namespace ContactListMvc.Models.Repository.EPPlus
                     throw;
                 }
             }
-
-            MvcApplication.log.Info("Файл контактов загружен");
-
-            return res;
         }
 
         public DataTable LoadFromPartFile(string filename, int page, int pagesize)
